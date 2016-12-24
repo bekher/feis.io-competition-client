@@ -1,0 +1,38 @@
+PODS:
+  - Action (1.2.2):
+    - RxCocoa (~> 2.0)
+    - RxSwift (~> 2.0)
+  - Alamofire (3.4.1)
+  - NSObject+Rx (1.2.1):
+    - RxSwift (~> 2.1)
+  - RxAlamofire (2.5):
+    - RxAlamofire/Core (= 2.5)
+  - RxAlamofire/Core (2.5):
+    - Alamofire (~> 3.4)
+    - RxSwift (~> 2.5)
+  - RxCocoa (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxSwift (2.6.0)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Action
+  - Alamofire
+  - NSObject+Rx
+  - RxAlamofire
+  - RxCocoa
+  - RxSwift
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Action: 4c00077042467dbc214418c0b3e46c652b2785c5
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  NSObject+Rx: 5d032a7f161602dec6b82dcf12731e91ce15b8da
+  RxAlamofire: b4572a077b6b2410c8732a27266299df4c00736e
+  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: f62f28bcfc1ae4ca913a396a3bbe21f17cf53f89
+
+COCOAPODS: 1.1.1

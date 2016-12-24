@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202F5A242770847FD1A8E4C1 /* Pods_Competition_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDC663CA24B138345BBFECD /* Pods_Competition_Client.framework */; };
 		48E41C4D1E0ED9580097308E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C4C1E0ED9580097308E /* AppDelegate.swift */; };
 		48E41C501E0ED9580097308E /* Competition_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C4E1E0ED9580097308E /* Competition_Client.xcdatamodeld */; };
 		48E41C521E0ED9580097308E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C511E0ED9580097308E /* MasterViewController.swift */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14AE4C34C04F5F3D6140B294 /* Pods-Competition Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Competition Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client.release.xcconfig"; sourceTree = "<group>"; };
+		1BDC663CA24B138345BBFECD /* Pods_Competition_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Competition_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C741BCAB3028C2D055611D /* Pods-Competition Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Competition Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client.debug.xcconfig"; sourceTree = "<group>"; };
 		48E41C491E0ED9580097308E /* Competition Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Competition Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E41C4C1E0ED9580097308E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48E41C4F1E0ED9580097308E /* Competition_Client.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Competition_Client.xcdatamodel; sourceTree = "<group>"; };
@@ -33,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				202F5A242770847FD1A8E4C1 /* Pods_Competition_Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E4B1BD81F337DF1B33113E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1BDC663CA24B138345BBFECD /* Pods_Competition_Client.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		48E41C401E0ED9580097308E = {
 			isa = PBXGroup;
 			children = (
 				48E41C4B1E0ED9580097308E /* Competition Client */,
 				48E41C4A1E0ED9580097308E /* Products */,
+				8459B4F77550F3C94F7F494E /* Pods */,
+				3E4B1BD81F337DF1B33113E2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +85,15 @@
 			path = "Competition Client";
 			sourceTree = "<group>";
 		};
+		8459B4F77550F3C94F7F494E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				32C741BCAB3028C2D055611D /* Pods-Competition Client.debug.xcconfig */,
+				14AE4C34C04F5F3D6140B294 /* Pods-Competition Client.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 48E41C601E0ED9580097308E /* Build configuration list for PBXNativeTarget "Competition Client" */;
 			buildPhases = (
+				19B9CA6332D9FF475344507F /* [CP] Check Pods Manifest.lock */,
 				48E41C451E0ED9580097308E /* Sources */,
 				48E41C461E0ED9580097308E /* Frameworks */,
 				48E41C471E0ED9580097308E /* Resources */,
+				28160E78FDC85872AAAFFB59 /* [CP] Embed Pods Frameworks */,
+				C1C9153F10F2A0A33097BA52 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,6 +164,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19B9CA6332D9FF475344507F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		28160E78FDC85872AAAFFB59 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1C9153F10F2A0A33097BA52 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		48E41C451E0ED9580097308E /* Sources */ = {
@@ -267,6 +342,7 @@
 		};
 		48E41C611E0ED9580097308E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32C741BCAB3028C2D055611D /* Pods-Competition Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9ZK9399LZT;
@@ -280,6 +356,7 @@
 		};
 		48E41C621E0ED9580097308E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14AE4C34C04F5F3D6140B294 /* Pods-Competition Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9ZK9399LZT;
@@ -310,6 +387,7 @@
 				48E41C621E0ED9580097308E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
