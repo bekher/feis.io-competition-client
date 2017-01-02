@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		202F5A242770847FD1A8E4C1 /* Pods_Competition_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDC663CA24B138345BBFECD /* Pods_Competition_Client.framework */; };
+		487A67FB1E195F3300CAD3B3 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */; };
+		48D733BD1E1766350001E0A7 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */; };
+		48D733BF1E1779F60001E0A7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733BE1E1779F60001E0A7 /* LoginViewController.swift */; };
+		48D733C31E1868A00001E0A7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733C21E1868A00001E0A7 /* UIView+Extensions.swift */; };
 		48E41C4D1E0ED9580097308E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C4C1E0ED9580097308E /* AppDelegate.swift */; };
 		48E41C501E0ED9580097308E /* Competition_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C4E1E0ED9580097308E /* Competition_Client.xcdatamodeld */; };
 		48E41C521E0ED9580097308E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E41C511E0ED9580097308E /* MasterViewController.swift */; };
@@ -15,12 +19,27 @@
 		48E41C571E0ED9580097308E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48E41C551E0ED9580097308E /* Main.storyboard */; };
 		48E41C591E0ED9580097308E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48E41C581E0ED9580097308E /* Assets.xcassets */; };
 		48E41C5C1E0ED9580097308E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48E41C5A1E0ED9580097308E /* LaunchScreen.storyboard */; };
+		48E7B5521E0F15DC00219FE0 /* JSONAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5511E0F15DC00219FE0 /* JSONAble.swift */; };
+		48E7B5541E0F16E400219FE0 /* Dancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5531E0F16E400219FE0 /* Dancer.swift */; };
+		48E7B5561E0F1B5B00219FE0 /* DanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5551E0F1B5B00219FE0 /* DanceInfo.swift */; };
+		48E7B5961E120E9000219FE0 /* CompetitionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5951E120E9000219FE0 /* CompetitionSelectViewController.swift */; };
+		48E7B5981E120F0E00219FE0 /* Competition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5971E120F0E00219FE0 /* Competition.swift */; };
+		48E7B59C1E123D7C00219FE0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B59B1E123D7C00219FE0 /* Networking.swift */; };
+		48E7B59F1E123DDC00219FE0 /* FeisioAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B59E1E123DDC00219FE0 /* FeisioAPI.swift */; };
+		48E7B5A51E12D07E00219FE0 /* FeisUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5A41E12D07E00219FE0 /* FeisUser.swift */; };
+		48E7B5A71E12D32700219FE0 /* FeisInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5A61E12D32700219FE0 /* FeisInfo.swift */; };
+		48E7B5A91E16F8A000219FE0 /* UserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5A81E16F8A000219FE0 /* UserCredentials.swift */; };
+		48E7B5AC1E1739A000219FE0 /* Observable+JSONAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5AB1E1739A000219FE0 /* Observable+JSONAble.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		14AE4C34C04F5F3D6140B294 /* Pods-Competition Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Competition Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client.release.xcconfig"; sourceTree = "<group>"; };
 		1BDC663CA24B138345BBFECD /* Pods_Competition_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Competition_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C741BCAB3028C2D055611D /* Pods-Competition Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Competition Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Competition Client/Pods-Competition Client.debug.xcconfig"; sourceTree = "<group>"; };
+		487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
+		48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
+		48D733BE1E1779F60001E0A7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		48D733C21E1868A00001E0A7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		48E41C491E0ED9580097308E /* Competition Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Competition Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E41C4C1E0ED9580097308E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48E41C4F1E0ED9580097308E /* Competition_Client.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Competition_Client.xcdatamodel; sourceTree = "<group>"; };
@@ -30,6 +49,17 @@
 		48E41C581E0ED9580097308E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48E41C5B1E0ED9580097308E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48E41C5D1E0ED9580097308E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48E7B5511E0F15DC00219FE0 /* JSONAble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONAble.swift; path = App/Models/JSONAble.swift; sourceTree = "<group>"; };
+		48E7B5531E0F16E400219FE0 /* Dancer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dancer.swift; path = App/Models/Dancer.swift; sourceTree = "<group>"; };
+		48E7B5551E0F1B5B00219FE0 /* DanceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DanceInfo.swift; path = App/Models/DanceInfo.swift; sourceTree = "<group>"; };
+		48E7B5951E120E9000219FE0 /* CompetitionSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompetitionSelectViewController.swift; sourceTree = "<group>"; };
+		48E7B5971E120F0E00219FE0 /* Competition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Competition.swift; path = App/Models/Competition.swift; sourceTree = "<group>"; };
+		48E7B59B1E123D7C00219FE0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		48E7B59E1E123DDC00219FE0 /* FeisioAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeisioAPI.swift; sourceTree = "<group>"; };
+		48E7B5A41E12D07E00219FE0 /* FeisUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeisUser.swift; path = App/Models/FeisUser.swift; sourceTree = "<group>"; };
+		48E7B5A61E12D32700219FE0 /* FeisInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeisInfo.swift; sourceTree = "<group>"; };
+		48E7B5A81E16F8A000219FE0 /* UserCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCredentials.swift; path = App/Networking/UserCredentials.swift; sourceTree = "<group>"; };
+		48E7B5AB1E1739A000219FE0 /* Observable+JSONAble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+JSONAble.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +103,14 @@
 		48E41C4B1E0ED9580097308E /* Competition Client */ = {
 			isa = PBXGroup;
 			children = (
+				48E7B5AA1E17397000219FE0 /* Extensions */,
+				48E7B54F1E0F15B000219FE0 /* App */,
 				48E41C4C1E0ED9580097308E /* AppDelegate.swift */,
 				48E41C511E0ED9580097308E /* MasterViewController.swift */,
+				48E7B5951E120E9000219FE0 /* CompetitionSelectViewController.swift */,
 				48E41C531E0ED9580097308E /* DetailViewController.swift */,
+				48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */,
+				48D733BE1E1779F60001E0A7 /* LoginViewController.swift */,
 				48E41C551E0ED9580097308E /* Main.storyboard */,
 				48E41C581E0ED9580097308E /* Assets.xcassets */,
 				48E41C5A1E0ED9580097308E /* LaunchScreen.storyboard */,
@@ -83,6 +118,48 @@
 				48E41C4E1E0ED9580097308E /* Competition_Client.xcdatamodeld */,
 			);
 			path = "Competition Client";
+			sourceTree = "<group>";
+		};
+		48E7B54F1E0F15B000219FE0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				48E7B59D1E123D8200219FE0 /* Networking */,
+				48E7B5501E0F15B500219FE0 /* Models */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		48E7B5501E0F15B500219FE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				48E7B5511E0F15DC00219FE0 /* JSONAble.swift */,
+				48E7B5531E0F16E400219FE0 /* Dancer.swift */,
+				48E7B5971E120F0E00219FE0 /* Competition.swift */,
+				48E7B5551E0F1B5B00219FE0 /* DanceInfo.swift */,
+				48E7B5A41E12D07E00219FE0 /* FeisUser.swift */,
+				48E7B5A61E12D32700219FE0 /* FeisInfo.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		48E7B59D1E123D8200219FE0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				48E7B59B1E123D7C00219FE0 /* Networking.swift */,
+				48E7B59E1E123DDC00219FE0 /* FeisioAPI.swift */,
+				48E7B5A81E16F8A000219FE0 /* UserCredentials.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		48E7B5AA1E17397000219FE0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				48E7B5AB1E1739A000219FE0 /* Observable+JSONAble.swift */,
+				48D733C21E1868A00001E0A7 /* UIView+Extensions.swift */,
+				487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		8459B4F77550F3C94F7F494E /* Pods */ = {
@@ -219,8 +296,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				48E41C501E0ED9580097308E /* Competition_Client.xcdatamodeld in Sources */,
+				48E7B5A71E12D32700219FE0 /* FeisInfo.swift in Sources */,
+				487A67FB1E195F3300CAD3B3 /* NSObject+Rx.swift in Sources */,
+				48E7B59C1E123D7C00219FE0 /* Networking.swift in Sources */,
 				48E41C4D1E0ED9580097308E /* AppDelegate.swift in Sources */,
+				48E7B5A51E12D07E00219FE0 /* FeisUser.swift in Sources */,
+				48E7B5A91E16F8A000219FE0 /* UserCredentials.swift in Sources */,
+				48E7B5961E120E9000219FE0 /* CompetitionSelectViewController.swift in Sources */,
+				48D733BD1E1766350001E0A7 /* RootSplitViewController.swift in Sources */,
+				48E7B5521E0F15DC00219FE0 /* JSONAble.swift in Sources */,
+				48E7B5981E120F0E00219FE0 /* Competition.swift in Sources */,
+				48E7B59F1E123DDC00219FE0 /* FeisioAPI.swift in Sources */,
+				48D733C31E1868A00001E0A7 /* UIView+Extensions.swift in Sources */,
+				48E7B5AC1E1739A000219FE0 /* Observable+JSONAble.swift in Sources */,
+				48E7B5561E0F1B5B00219FE0 /* DanceInfo.swift in Sources */,
+				48D733BF1E1779F60001E0A7 /* LoginViewController.swift in Sources */,
 				48E41C521E0ED9580097308E /* MasterViewController.swift in Sources */,
+				48E7B5541E0F16E400219FE0 /* Dancer.swift in Sources */,
 				48E41C541E0ED9580097308E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 32C741BCAB3028C2D055611D /* Pods-Competition Client.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9ZK9399LZT;
 				INFOPLIST_FILE = "Competition Client/Info.plist";
@@ -358,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 14AE4C34C04F5F3D6140B294 /* Pods-Competition Client.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9ZK9399LZT;
 				INFOPLIST_FILE = "Competition Client/Info.plist";

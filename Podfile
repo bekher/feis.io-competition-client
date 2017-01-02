@@ -4,12 +4,14 @@ use_frameworks!
 target 'Competition Client' do
     # Networking
     pod 'SwiftyJSON'
-    pod 'Alamofire'
+    #pod 'Alamofire', '>= 4.0'
+    pod 'Moya', '>= 8.0.0-beta.1'
+    pod 'Moya/RxSwift', '>= 8.0.0-beta.1'
 
     # Reactive
     pod 'RxSwift'
     pod 'RxCocoa'
-    pod 'NSObject+Rx'
+    pod 'NSObject+Rx', ">= 2.0.0"
     pod 'Action'
-    pod 'RxAlamofire'
+    #pod 'RxAlamofire'
 end

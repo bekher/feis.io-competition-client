@@ -1,38 +1,43 @@
 PODS:
-  - Action (1.2.2):
-    - RxCocoa (~> 2.0)
-    - RxSwift (~> 2.0)
-  - Alamofire (3.4.1)
-  - NSObject+Rx (1.2.1):
-    - RxSwift (~> 2.1)
-  - RxAlamofire (2.5):
-    - RxAlamofire/Core (= 2.5)
-  - RxAlamofire/Core (2.5):
-    - Alamofire (~> 3.4)
-    - RxSwift (~> 2.5)
-  - RxCocoa (2.6.0):
-    - RxSwift (~> 2.5)
-  - RxSwift (2.6.0)
-  - SwiftyJSON (2.3.2)
+  - Action (2.1.0):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+  - Alamofire (4.2.0)
+  - Moya (8.0.0-beta.6):
+    - Moya/Core (= 8.0.0-beta.6)
+  - Moya/Core (8.0.0-beta.6):
+    - Alamofire (~> 4.0)
+    - Result (~> 3.0)
+  - Moya/RxSwift (8.0.0-beta.6):
+    - Moya/Core
+    - RxSwift (~> 3.0)
+  - NSObject+Rx (2.0.0):
+    - RxSwift
+  - Result (3.1.0)
+  - RxCocoa (3.1.0):
+    - RxSwift (~> 3.1)
+  - RxSwift (3.1.0)
+  - SwiftyJSON (3.1.3)
 
 DEPENDENCIES:
   - Action
-  - Alamofire
-  - NSObject+Rx
-  - RxAlamofire
+  - Moya (>= 8.0.0-beta.1)
+  - Moya/RxSwift (>= 8.0.0-beta.1)
+  - NSObject+Rx (>= 2.0.0)
   - RxCocoa
   - RxSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Action: 4c00077042467dbc214418c0b3e46c652b2785c5
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  NSObject+Rx: 5d032a7f161602dec6b82dcf12731e91ce15b8da
-  RxAlamofire: b4572a077b6b2410c8732a27266299df4c00736e
-  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
-  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Action: b02569f7169ae825e71d5a41ef727719ca5cc840
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  Moya: a29e2503a0c5067d462ba2f07cc6b6b1f3fc172d
+  NSObject+Rx: 2a9cd801d9c847e6d2486cbad8d7701b67834e70
+  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  RxCocoa: 50d7564866da9299161e86a263ce12a0873904d8
+  RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: f62f28bcfc1ae4ca913a396a3bbe21f17cf53f89
+PODFILE CHECKSUM: 2b0acbf7919f9583144ea8d23bac978055c89cf7
 
 COCOAPODS: 1.1.1
