@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import RxCocoa
 import SwiftyJSON
 
 struct AuthPlugin: PluginType {
@@ -56,9 +57,10 @@ class APIPingManager {
 	}
 	
 	fileprivate func ping() -> Observable<Bool> {
-		return provider.request(FeisioAPI.ping).map(responseIsOK)
+		return provider.request(FeisioAPI.ping).map(responseIsOK).catchErrorJustReturn(false)
 	}
 }
+
 
 class MainNetworkModel : NSObject, NetworkModel {
 	
@@ -70,11 +72,11 @@ class MainNetworkModel : NSObject, NetworkModel {
 	*/
 	
 
-	var authorizedUser : UserCredentials?
+	var authorizedUser : Variable<UserCredentials?> = Variable(nil)
+	var competitions : Variable<[Competition]> = Variable([])
 	
 	fileprivate var provider: RxMoyaProvider<FeisioAPI>!
 	fileprivate var curFeis: FeisInfo?
-	fileprivate var curCompetitions: [Competition]
 	
 	lazy var _apiPinger: APIPingManager = {
 		return APIPingManager(provider: self.provider)
@@ -84,26 +86,41 @@ class MainNetworkModel : NSObject, NetworkModel {
 		self._apiPinger.letOnline
 	}()
 	
-	override init() {
-		self.curCompetitions = []
-		self.curCompetitions.append(Competition(id: "12345", feisID: "123", roundIDs: ["12345"], name: "u18", judgingStatus: "notStarted", currentRound: "12345"))
-	}
-	
 	func setup() {
 		let endpointClosure = { (target: FeisioAPI) -> Endpoint<FeisioAPI> in
-			let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+			var defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
 				.adding(newHTTPHeaderFields: ["Content-Type" :"application/json"])
-				.adding(newParameterEncoding: JSONEncoding.default)
-			// Sign all non-authenticating requests
+			
+			// We want URL parameters for GET's, JSON params for all else
+			switch target.method {
+			case .get:
+				break
+			default:
+				defaultEndpoint = defaultEndpoint.adding(newParameterEncoding: JSONEncoding.default)
+			}
+			
+			// JWT Token
 			switch target {
 			case .auth( _, _):
 				return defaultEndpoint
 			default:
-				return defaultEndpoint.adding(newHTTPHeaderFields: ["Authentication": self.authorizedUser?.accessToken ?? ""])
+				return defaultEndpoint.adding(newHTTPHeaderFields: ["Authorization": self.authorizedUser.value?.accessToken ?? ""])
 			}
 		}
 		
 		self.provider = RxMoyaProvider<FeisioAPI>(endpointClosure: endpointClosure)//, plugins: [NetworkLoggerPlugin(verbose: false)])
+		
+		self.authorizedUser
+			.asObservable()
+			.subscribe(onNext: { authUser in
+				guard (authUser != nil) else { return }
+	
+				self.getCompetitions()?
+					.bindTo(self.competitions)
+					.addDisposableTo(self.rx_disposeBag)
+			})
+			.addDisposableTo(rx_disposeBag)
+		
 	}
 	
 	func initialConnect() {
@@ -134,96 +151,67 @@ class MainNetworkModel : NSObject, NetworkModel {
 			self.provider?
 				.request(.auth(username: username, password: password))
 				.filterSuccessfulStatusCodes()
-				.subscribe() { event in
-					switch event {
-					case .next(let response):
-						//TODO: probably some of this in login VC with a helper func to serialize token
-						
-						do {
-							if let json = try response.mapJSON() as? [String: Any] {
-								
-								self.authorizedUser = UserCredentials(user: FeisUser.fromJSON(json["data"] as! [String : Any]),
-								                                      accessToken: json["token"] as! String)
-								
-								observer.onNext(true)
-								observer.on(.completed)
-								
-							}
+				.subscribe(onNext: { response in
+					do {
+						if let json = try response.mapJSON() as? [String: Any] {
+							// DeJSONify user and install JWT
+							self.authorizedUser.value =
+								UserCredentials(user: FeisUser.fromJSON(json["data"] as! [String : Any]),
+								                accessToken: json["token"] as! String)
 							
-						} catch {//let error as NSError {
-							print("error happened in login network")
-							observer.onNext(false)
-							observer.onCompleted()
+							observer.onNext(true)
 						}
-					case .error(_):
+						
+					} catch {//let error as NSError {
+						print("error happened in login network")
 						observer.onNext(false)
-						observer.onCompleted()
-					default:
-						break
 					}
-				}
+					observer.onCompleted()
+				})
 				.addDisposableTo(self.rx_disposeBag)
 			return done
 		}
-		/*
-		self.provider?.request(.auth(username: username, password: password)) { result in
-		switch result {
-		case let .failure(error):
-		res = false
-		case let .success(response):
-		//TODO: probably some of this in login VC with a helper func to serialize token
-		do {
-		let data = response.data
-		let statusCode = response.statusCode
-		
-		if let json = try response.mapJSON() as? [String: Any] {
-		
-		let newUser = UserCredentials(user: FeisUser.fromJSON(json["data"] as! [String : Any]),
-		accessToken: json["token"] as! String)
-		print(newUser)
-		
-		}
-		
-		} catch let error as NSError {
-		print("error happened in login network")
-		print (error)
-		}
-		
-		}
-		}
-		*/
 		
 	}
 	
+	fileprivate func getCompetitions() -> Observable<[Competition]>? {
+		guard (self.authorizedUser.value != nil) else { return nil }
+
+		if let feisId = authorizedUser.value!.user.currentFeis?.id  {
+		return self.provider?
+			.request(.competitions(feisId: feisId))
+			.filterSuccessfulStatusCodes()
+			.mapJSON()
+			.mapTo(arrayOf: Competition.self)
+			/*
+			.map({ response in
+				do {
+					if let json = try response.mapJSON() as? [String: Any] {
+						
+						return json.map({ entry in
+							return
+						})
+					}
+				} catch {
+					return []
+				}
+			})
+				*/
+		}
+		
+		return nil
+	}
+	
 	func getFeisInfo() -> FeisInfo? {
-		guard authorizedUser != nil else {
+		guard authorizedUser.value != nil else {
 			return nil
 		}
 		return nil
 	}
 	
 	func isAuthenticated() -> Bool {
-		return authorizedUser != nil
+		return authorizedUser.value != nil
 	}
 	
-	// GREG TODO TOMORROW: make observable and bind stuff
-	func getCompetitions() -> [Competition] {
-		guard self.authorizedUser != nil else {
-			return []
-		}
-		
-		return curCompetitions
-	}
-	
-	private func populateCompetitions() {
-		guard authorizedUser != nil && curFeis != nil else {
-			return
-		}
-		
-		// TODO finish
-		/*
-		authProvider!
-		.request(.competitions(feisId: curFeis!.id))
-		*/
-	}
+
 }

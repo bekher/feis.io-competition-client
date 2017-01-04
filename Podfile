@@ -9,8 +9,8 @@ target 'Competition Client' do
     pod 'Moya/RxSwift', '>= 8.0.0-beta.1'
 
     # Reactive
-    pod 'RxSwift'
-    pod 'RxCocoa'
+    pod 'RxSwift', '>= 3.0'
+    pod 'RxCocoa', '>= 3.0'
     pod 'NSObject+Rx', ">= 2.0.0"
     pod 'Action'
     #pod 'RxAlamofire'

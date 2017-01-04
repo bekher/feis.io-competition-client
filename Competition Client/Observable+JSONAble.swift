@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import SwiftyJSON
 
 enum EidolonError: String {
 	case couldNotParseJSON
@@ -36,14 +37,15 @@ extension Observable {
 	/// Get given JSONified data, pass back objects as an array
 	func mapTo<B: JSONAble>(arrayOf classType: B.Type) -> Observable<[B]> {
 		return self.map { json in
-			guard let array = json as? [AnyObject] else {
+			
+			guard let array = JSON(json)["data"].arrayObject as? [AnyObject] else {
 				throw EidolonError.couldNotParseJSON
 			}
 			
 			guard let dicts = array as? [Dictionary] else {
 				throw EidolonError.couldNotParseJSON
 			}
-			
+
 			return dicts.map { B.fromJSON($0) }
 		}
 	}

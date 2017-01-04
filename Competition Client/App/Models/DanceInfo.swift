@@ -29,7 +29,9 @@ final class DanceInfo: NSObject, JSONAble {
 	static func fromJSON(_ source: [String : Any]) -> DanceInfo {
 		let json = JSON(source)
 		
-		let roundID = json["roundID"].stringValue
+		//TODO FIX
+		
+		let roundID = json["roundId"].stringValue
 		let setName = json["setName"].stringValue
 		let setSpeed = json["setSpeed"].stringValue
 		let danceType = json["danceType"].stringValue

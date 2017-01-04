@@ -13,15 +13,15 @@ import SwiftyJSON
 final class Competition: NSObject, JSONAble {
 	let id : String
 	let feisID : String
-	let roundIDs : [String]
 	let name : String
 	let judgingStatus : String
 	let currentRound : String?
+	let rounds : [Round]
 	
-	init (id : String, feisID : String, roundIDs : [String], name : String, judgingStatus : String, currentRound : String?) {
+	init (id : String, feisID : String, rounds : [Round], name : String, judgingStatus : String, currentRound : String?) {
 		self.id = id
 		self.feisID = feisID
-		self.roundIDs = roundIDs
+		self.rounds = rounds
 		self.name = name
 		self.judgingStatus = judgingStatus
 		self.currentRound = currentRound
@@ -30,14 +30,19 @@ final class Competition: NSObject, JSONAble {
 	static func fromJSON(_ source: [String : Any]) -> Competition {
 		let json = JSON(source)
 		
-		let id = json["id"].stringValue
-		let feisID = json["feisID"].stringValue
+		let id = json["_id"].stringValue
+		let feisID = json["feisId"].stringValue
 		let name = json["name"].stringValue
 		let judgingStatus = json["judgingStatus"].stringValue
 		let currentRound = json["currentRound"].stringValue
+		var rounds : [Round] = []
 		
-		let roundIDs = (json["scoresheetIDs"].object as? [String]) ?? []
+		if let roundArray = json["rounds"].arrayObject as? Array<[String: AnyObject]> {
+			rounds = roundArray.map{ return Round.fromJSON($0) }
+		}
 		
-		return Competition(id: id, feisID: feisID, roundIDs: roundIDs, name: name, judgingStatus: judgingStatus, currentRound: currentRound)
+		//let roundIDs = (json["scoresheetIDs"].object as? [String]) ?? []
+		
+		return Competition(id: id, feisID: feisID, rounds: rounds, name: name, judgingStatus: judgingStatus, currentRound: currentRound)
 	}
 }

@@ -12,6 +12,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	@IBOutlet weak var usernameTextfield: UITextField?
 	@IBOutlet weak var passwordTextfield: UITextField?
+	@IBOutlet weak var loginLabel: UILabel?
 	let appDelegate = UIApplication.shared.delegate as! AppDelegate
 	var networkModel : MainNetworkModel?
 	
@@ -58,18 +59,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		
 		let username = self.usernameTextfield?.text ?? ""
 		let password = self.passwordTextfield?.text ?? ""
+		self.loginLabel?.isHidden = true
 		
 		_ = self.networkModel?.login(username: username, password: password)
 			.subscribe(onNext: { isLoggedIn in
 				if (isLoggedIn) {
 					self.performSegue(withIdentifier: "unwindToSplitVC", sender: self)
-					if (self.parent != nil) {
-						print("nav")
-						
-						//_ = self.navigationController?.popToViewController(self.parent!, animated: false)
-					}
 				} else {
-					//show error
+					self.loginLabel?.isHidden = false
+					
 				}
 			})
 		/*

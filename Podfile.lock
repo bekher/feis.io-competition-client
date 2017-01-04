@@ -24,8 +24,8 @@ DEPENDENCIES:
   - Moya (>= 8.0.0-beta.1)
   - Moya/RxSwift (>= 8.0.0-beta.1)
   - NSObject+Rx (>= 2.0.0)
-  - RxCocoa
-  - RxSwift
+  - RxCocoa (>= 3.0)
+  - RxSwift (>= 3.0)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -38,6 +38,6 @@ SPEC CHECKSUMS:
   RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 2b0acbf7919f9583144ea8d23bac978055c89cf7
+PODFILE CHECKSUM: 67b3c2ad7df6c0d0e71fc215bc8b21bd24620b30
 
 COCOAPODS: 1.1.1

@@ -1,9 +1,9 @@
 //
-//  CompetitionSelectViewController.swift
+//  RoundSelectViewController.swift
 //  Competition Client
 //
-//  Created by Greg Bekher on 12/26/16.
-//  Copyright © 2016 Feis.io. All rights reserved.
+//  Created by Greg Bekher on 1/2/17.
+//  Copyright © 2017 Feis.io. All rights reserved.
 //
 
 import Foundation
@@ -11,45 +11,36 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class CompetitionSelectViewController: UITableViewController {
-	
-	var detailViewController: DetailViewController? = nil
-
+class RoundSelectViewController: UITableViewController {
+	var selectedCompetition : Variable<Competition?> = Variable(nil)
 	var networkModel : MainNetworkModel?
-	let appDelegate = UIApplication.shared.delegate as! AppDelegate
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        //self.clearsSelectionOnViewWillAppear = false
+        // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		/*
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backButtonSegue(_:)))
-		*/
-		
-		/*
-		if let split = self.splitViewController {
-			let controllers = split.viewControllers
-			self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-		}
-		*/
-		self.networkModel = appDelegate.getNetworkModel()
-
 		networkModel?.competitions
 			.asObservable()
 			.subscribe(onNext: { stuff in
 				self.tableView.reloadData()
 			})
 			.addDisposableTo(rx_disposeBag)
-		
-		
+		// TODO: save competition id and reload current round based on that
+		selectedCompetition
+			.asObservable()
+			.subscribe(onNext: {stuff in
+				self.tableView.reloadData()
+			})
+			.addDisposableTo(rx_disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -60,19 +51,20 @@ class CompetitionSelectViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
-        return self.networkModel?.competitions.value.count ?? 0
+		print(selectedCompetition.value?.rounds)
+		print(selectedCompetition)
+        return selectedCompetition.value?.rounds.count ?? 0
     }
 
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CompCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "roundCell", for: indexPath)
 
-        // Configure the cell...
-		let comp = networkModel!.competitions.value[indexPath.row]
+        let roundNumber = selectedCompetition.value?.rounds[indexPath.row].number ?? indexPath.row
+		let shoeType = selectedCompetition.value?.rounds[indexPath.row].shoeType ?? ""
 		
-		cell.textLabel!.text = comp.name
-		
+		cell.textLabel!.text = "Round \(roundNumber): \(shoeType) shoe"
+
         return cell
     }
 	
@@ -112,37 +104,14 @@ class CompetitionSelectViewController: UITableViewController {
     }
     */
 
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-
-		if (segue.identifier == "showRoundSelectViewController") {
-			let destVC = segue.destination as! RoundSelectViewController
-			let selectedIndex = self.tableView.indexPathForSelectedRow
-
-			if (selectedIndex != nil) {
-				destVC.selectedCompetition.value = networkModel!.competitions.value[selectedIndex!.row]
-				destVC.networkModel = self.networkModel
-			}
-		} else {
-			
-		}
     }
-	
-	/*
-	
-	func pushRoundDetailController() {
-		if let viewController = UIStoryboard(name: "Main", bundle: nil)
-			.instantiateViewController(withIdentifier: "RoundDetailViewController") as? RoundDetailViewController {
-			viewController.
-			if let navigator = navigationController {
-				navigator.pushViewController(viewController, animated: true)
-			}
-		}
-	}
-*/
+    */
 
 }

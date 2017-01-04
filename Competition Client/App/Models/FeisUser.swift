@@ -34,10 +34,12 @@ final class FeisUser : NSObject, JSONAble {
 		let id = json["_id"].stringValue
 		let role = json["role"].stringValue
 		var currentFeis: FeisInfo?
+		
 		if let feisInfo = json["currentFeis"].object as? [String: AnyObject] {
 			currentFeis = FeisInfo.fromJSON(feisInfo)
 		}
 		
+		// TODO: Competition Ids?
 		var competitions : [Competition]
 		competitions = []
 		
