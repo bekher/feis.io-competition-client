@@ -22,20 +22,19 @@ class CompetitionSelectViewController: UITableViewController {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        //self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		/*
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backButtonSegue(_:)))
-		*/
 		
-		/*
 		if let split = self.splitViewController {
 			let controllers = split.viewControllers
 			self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+			if (self.detailViewController != nil) {
+				//self.navigationController?.pushViewController(self.detailViewController!, animated:true)
+			}
 		}
-		*/
+		
 		self.networkModel = appDelegate.getNetworkModel()
 
 		networkModel?.competitions
@@ -47,6 +46,7 @@ class CompetitionSelectViewController: UITableViewController {
 		
 		
     }
+	
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,12 +56,15 @@ class CompetitionSelectViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-        return self.networkModel?.competitions.value.count ?? 0
+		if (section == 1) {
+			return self.networkModel?.competitions.value.count ?? 0
+		}
+		return 1
     }
 
 	
@@ -69,13 +72,34 @@ class CompetitionSelectViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CompCell", for: indexPath)
 
         // Configure the cell...
-		let comp = networkModel!.competitions.value[indexPath.row]
+		if (indexPath.section == 1) {
+			let comp = networkModel!.competitions.value[indexPath.row]
 		
-		cell.textLabel!.text = comp.name
-		
+			cell.textLabel!.text = comp.name
+		} else {
+			cell.textLabel!.text = "Dashboard"
+		}
+	
         return cell
     }
 	
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if (section == 1) {
+			return "Competitions"
+		}
+		
+		return "Settings"
+	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if (indexPath.section == 0) {
+			if (indexPath.row == 0) {
+				self.performSegue(withIdentifier: "showDashboardViewController", sender: self)
+			}
+		} else {
+			self.performSegue(withIdentifier: "showRoundSelectViewController", sender: self)
+		}
+	}
 
     /*
     // Override to support conditional editing of the table view.
@@ -125,7 +149,6 @@ class CompetitionSelectViewController: UITableViewController {
 
 			if (selectedIndex != nil) {
 				destVC.selectedCompetition.value = networkModel!.competitions.value[selectedIndex!.row]
-				destVC.networkModel = self.networkModel
 			}
 		} else {
 			

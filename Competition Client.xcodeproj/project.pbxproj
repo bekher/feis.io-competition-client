@@ -11,6 +11,8 @@
 		487A67FB1E195F3300CAD3B3 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */; };
 		4888CE281E1B546B00DFC892 /* RoundSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4888CE271E1B546B00DFC892 /* RoundSelectViewController.swift */; };
 		4888CE2A1E1B54A400DFC892 /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4888CE291E1B54A400DFC892 /* Round.swift */; };
+		4899701A1E1D4CE2006909BA /* DancerSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489970191E1D4CE2006909BA /* DancerSelectViewController.swift */; };
+		4899701C1E1D4F0F006909BA /* DancerNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4899701B1E1D4F0F006909BA /* DancerNetworkModel.swift */; };
 		48D733BD1E1766350001E0A7 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */; };
 		48D733BF1E1779F60001E0A7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733BE1E1779F60001E0A7 /* LoginViewController.swift */; };
 		48D733C31E1868A00001E0A7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D733C21E1868A00001E0A7 /* UIView+Extensions.swift */; };
@@ -32,6 +34,12 @@
 		48E7B5A71E12D32700219FE0 /* FeisInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5A61E12D32700219FE0 /* FeisInfo.swift */; };
 		48E7B5A91E16F8A000219FE0 /* UserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5A81E16F8A000219FE0 /* UserCredentials.swift */; };
 		48E7B5AC1E1739A000219FE0 /* Observable+JSONAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7B5AB1E1739A000219FE0 /* Observable+JSONAble.swift */; };
+		48F019851E1ED9AB001B3644 /* DancerScoresheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F019841E1ED9AB001B3644 /* DancerScoresheetViewController.swift */; };
+		48F019871E1EDA14001B3644 /* DancerEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F019861E1EDA14001B3644 /* DancerEditViewController.swift */; };
+		48F019891E1F1550001B3644 /* FeisioDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F019881E1F1550001B3644 /* FeisioDefaults.swift */; };
+		48F0198B1E1FFC79001B3644 /* EmbedScoresheetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0198A1E1FFC79001B3644 /* EmbedScoresheetTableViewController.swift */; };
+		48F0198E1E200B87001B3644 /* DancerReviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0198D1E200B87001B3644 /* DancerReviewTableViewController.swift */; };
+		48F019901E200F95001B3644 /* Scoresheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F0198F1E200F95001B3644 /* Scoresheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +49,8 @@
 		487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
 		4888CE271E1B546B00DFC892 /* RoundSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundSelectViewController.swift; sourceTree = "<group>"; };
 		4888CE291E1B54A400DFC892 /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Round.swift; path = App/Models/Round.swift; sourceTree = "<group>"; };
+		489970191E1D4CE2006909BA /* DancerSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancerSelectViewController.swift; sourceTree = "<group>"; };
+		4899701B1E1D4F0F006909BA /* DancerNetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancerNetworkModel.swift; sourceTree = "<group>"; };
 		48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
 		48D733BE1E1779F60001E0A7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		48D733C21E1868A00001E0A7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -64,6 +74,12 @@
 		48E7B5A61E12D32700219FE0 /* FeisInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeisInfo.swift; sourceTree = "<group>"; };
 		48E7B5A81E16F8A000219FE0 /* UserCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCredentials.swift; path = App/Networking/UserCredentials.swift; sourceTree = "<group>"; };
 		48E7B5AB1E1739A000219FE0 /* Observable+JSONAble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+JSONAble.swift"; sourceTree = "<group>"; };
+		48F019841E1ED9AB001B3644 /* DancerScoresheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancerScoresheetViewController.swift; sourceTree = "<group>"; };
+		48F019861E1EDA14001B3644 /* DancerEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancerEditViewController.swift; sourceTree = "<group>"; };
+		48F019881E1F1550001B3644 /* FeisioDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeisioDefaults.swift; sourceTree = "<group>"; };
+		48F0198A1E1FFC79001B3644 /* EmbedScoresheetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbedScoresheetTableViewController.swift; sourceTree = "<group>"; };
+		48F0198D1E200B87001B3644 /* DancerReviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DancerReviewTableViewController.swift; sourceTree = "<group>"; };
+		48F0198F1E200F95001B3644 /* Scoresheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scoresheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,12 +126,13 @@
 				48E7B5AA1E17397000219FE0 /* Extensions */,
 				48E7B54F1E0F15B000219FE0 /* App */,
 				48E41C4C1E0ED9580097308E /* AppDelegate.swift */,
+				48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */,
 				48E41C511E0ED9580097308E /* MasterViewController.swift */,
 				48E7B5951E120E9000219FE0 /* CompetitionSelectViewController.swift */,
 				4888CE271E1B546B00DFC892 /* RoundSelectViewController.swift */,
 				48E41C531E0ED9580097308E /* DetailViewController.swift */,
-				48D733BC1E1766350001E0A7 /* RootSplitViewController.swift */,
 				48D733BE1E1779F60001E0A7 /* LoginViewController.swift */,
+				48F0198C1E2002A8001B3644 /* Dancer Input VCs */,
 				48E41C551E0ED9580097308E /* Main.storyboard */,
 				48E41C581E0ED9580097308E /* Assets.xcassets */,
 				48E41C5A1E0ED9580097308E /* LaunchScreen.storyboard */,
@@ -128,6 +145,7 @@
 		48E7B54F1E0F15B000219FE0 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				48F019881E1F1550001B3644 /* FeisioDefaults.swift */,
 				48E7B59D1E123D8200219FE0 /* Networking */,
 				48E7B5501E0F15B500219FE0 /* Models */,
 			);
@@ -144,6 +162,7 @@
 				48E7B5A41E12D07E00219FE0 /* FeisUser.swift */,
 				48E7B5A61E12D32700219FE0 /* FeisInfo.swift */,
 				4888CE291E1B54A400DFC892 /* Round.swift */,
+				48F0198F1E200F95001B3644 /* Scoresheet.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -166,6 +185,19 @@
 				487A67FA1E195F3300CAD3B3 /* NSObject+Rx.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		48F0198C1E2002A8001B3644 /* Dancer Input VCs */ = {
+			isa = PBXGroup;
+			children = (
+				489970191E1D4CE2006909BA /* DancerSelectViewController.swift */,
+				48F019841E1ED9AB001B3644 /* DancerScoresheetViewController.swift */,
+				48F019861E1EDA14001B3644 /* DancerEditViewController.swift */,
+				4899701B1E1D4F0F006909BA /* DancerNetworkModel.swift */,
+				48F0198A1E1FFC79001B3644 /* EmbedScoresheetTableViewController.swift */,
+				48F0198D1E200B87001B3644 /* DancerReviewTableViewController.swift */,
+			);
+			name = "Dancer Input VCs";
 			sourceTree = "<group>";
 		};
 		8459B4F77550F3C94F7F494E /* Pods */ = {
@@ -301,26 +333,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48F019851E1ED9AB001B3644 /* DancerScoresheetViewController.swift in Sources */,
+				48F019871E1EDA14001B3644 /* DancerEditViewController.swift in Sources */,
 				48E41C501E0ED9580097308E /* Competition_Client.xcdatamodeld in Sources */,
 				48E7B5A71E12D32700219FE0 /* FeisInfo.swift in Sources */,
 				487A67FB1E195F3300CAD3B3 /* NSObject+Rx.swift in Sources */,
 				48E7B59C1E123D7C00219FE0 /* Networking.swift in Sources */,
 				48E41C4D1E0ED9580097308E /* AppDelegate.swift in Sources */,
+				48F019901E200F95001B3644 /* Scoresheet.swift in Sources */,
 				48E7B5A51E12D07E00219FE0 /* FeisUser.swift in Sources */,
+				4899701A1E1D4CE2006909BA /* DancerSelectViewController.swift in Sources */,
 				48E7B5A91E16F8A000219FE0 /* UserCredentials.swift in Sources */,
 				48E7B5961E120E9000219FE0 /* CompetitionSelectViewController.swift in Sources */,
 				48D733BD1E1766350001E0A7 /* RootSplitViewController.swift in Sources */,
+				48F019891E1F1550001B3644 /* FeisioDefaults.swift in Sources */,
 				48E7B5521E0F15DC00219FE0 /* JSONAble.swift in Sources */,
 				48E7B5981E120F0E00219FE0 /* Competition.swift in Sources */,
 				48E7B59F1E123DDC00219FE0 /* FeisioAPI.swift in Sources */,
 				48D733C31E1868A00001E0A7 /* UIView+Extensions.swift in Sources */,
 				48E7B5AC1E1739A000219FE0 /* Observable+JSONAble.swift in Sources */,
 				48E7B5561E0F1B5B00219FE0 /* DanceInfo.swift in Sources */,
+				48F0198B1E1FFC79001B3644 /* EmbedScoresheetTableViewController.swift in Sources */,
 				48D733BF1E1779F60001E0A7 /* LoginViewController.swift in Sources */,
 				48E41C521E0ED9580097308E /* MasterViewController.swift in Sources */,
 				4888CE281E1B546B00DFC892 /* RoundSelectViewController.swift in Sources */,
+				4899701C1E1D4F0F006909BA /* DancerNetworkModel.swift in Sources */,
 				48E7B5541E0F16E400219FE0 /* Dancer.swift in Sources */,
 				4888CE2A1E1B54A400DFC892 /* Round.swift in Sources */,
+				48F0198E1E200B87001B3644 /* DancerReviewTableViewController.swift in Sources */,
 				48E41C541E0ED9580097308E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

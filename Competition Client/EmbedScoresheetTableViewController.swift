@@ -1,44 +1,21 @@
 //
-//  RoundSelectViewController.swift
+//  EmbedScoresheetTableViewController.swift
 //  Competition Client
 //
-//  Created by Greg Bekher on 1/2/17.
+//  Created by Greg Bekher on 1/6/17.
 //  Copyright © 2017 Feis.io. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+class EmbedScoresheetTableViewController: UITableViewController {
 
-class RoundSelectViewController: UITableViewController {
-
-	var networkModel : MainNetworkModel?
-	var selectedCompetition : Variable<Competition?> = Variable(nil)
-
+	var dancer : Variable<Optional<Dancer>> = Variable(nil)
+	var scoresheet : Variable<Optional<Scoresheet>> = Variable(nil)
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		networkModel?.competitions
-			.asObservable()
-			.subscribe(onNext: { stuff in
-				self.tableView.reloadData()
-			})
-			.addDisposableTo(rx_disposeBag)
-		// TODO: save competition id and reload current round based on that
-		selectedCompetition
-			.asObservable()
-			.subscribe(onNext: {stuff in
-				self.tableView.reloadData()
-			})
-			.addDisposableTo(rx_disposeBag)
-		
-		
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,27 +25,26 @@ class RoundSelectViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+	/*
     override func numberOfSections(in tableView: UITableView) -> Int {
-
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedCompetition.value?.rounds.count ?? 0
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
 
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "roundCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        let roundNumber = selectedCompetition.value?.rounds[indexPath.row].number ?? indexPath.row
-		let shoeType = selectedCompetition.value?.rounds[indexPath.row].shoeType ?? ""
-		
-		cell.textLabel!.text = "Round \(roundNumber): \(shoeType) shoe"
+        // Configure the cell...
 
         return cell
     }
-	
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -105,26 +81,14 @@ class RoundSelectViewController: UITableViewController {
     }
     */
 
+	
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-		if (segue.identifier == "showDancerSelectViewController") {
-			let destVC = segue.destination as! DancerSelectViewController
-			let selectedIndex = self.tableView.indexPathForSelectedRow
-
-			if (selectedIndex != nil) {
-				destVC.selectedCompetition = self.selectedCompetition
-				self.selectedCompetition.asObservable().map()
-					{ comp in
-						return comp?.rounds[selectedIndex!.row] ?? nil
-				}.bindTo(destVC.selectedRound)
-				.addDisposableTo(rx_disposeBag)
-			}
-		}
     }
-
+    
 
 }

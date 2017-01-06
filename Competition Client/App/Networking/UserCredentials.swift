@@ -11,9 +11,12 @@ import Foundation
 struct UserCredentials {
 	let user: FeisUser
 	let accessToken: String
+	let expiryDate: Date
 	
 	init(user: FeisUser, accessToken: String){
 		self.user = user
 		self.accessToken = accessToken
+		self.expiryDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
+		
 	}
 }

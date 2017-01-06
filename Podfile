@@ -7,6 +7,7 @@ target 'Competition Client' do
     #pod 'Alamofire', '>= 4.0'
     pod 'Moya', '>= 8.0.0-beta.1'
     pod 'Moya/RxSwift', '>= 8.0.0-beta.1'
+    pod 'Socket.IO-Client-Swift'
 
     # Reactive
     pod 'RxSwift', '>= 3.0'

@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RootSplitViewController: UISplitViewController {
 
@@ -27,10 +29,8 @@ class RootSplitViewController: UISplitViewController {
 		*/
 		
         // Do any additional setup after loading the view.
-		networkModel = appDelegate.getNetworkModel()
-		networkModel!.initialConnect()
-		networkModel!.reachability
-			
+		self.networkModel = appDelegate.getNetworkModel()
+		self.networkModel!.reachability
 			.subscribe(onNext: { status in
 				// not reactive but it's ok
 				if (self.offlineViewPresent && status && self.offlineViewController != nil) {
@@ -56,14 +56,25 @@ class RootSplitViewController: UISplitViewController {
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
-		if let networkModel = networkModel {
-			if (!networkModel.isAuthenticated()) {
-				showLoginViewController()
-			}
-			
-		} else {
-			showLoginViewController()
-		}
+		super.viewDidAppear(animated)
+		
+		guard (self.networkModel != nil) else { return }
+		
+		self.networkModel!
+			.authorizedUser
+			.asObservable()
+			.subscribe(onNext: { authUser in
+				if (authUser == nil) {
+					if (!self.offlineViewPresent && ( self.loginViewController == nil || self.loginViewController!.view.superview == nil)) {
+						self.showLoginViewController()
+					}
+				} else {
+					if (self.loginViewController != nil && self.loginViewController!.view.superview != nil) {
+						self.loginViewController?.dismiss(animated: true)
+					}
+				}
+			})
+			.addDisposableTo(rx_disposeBag)
 		
 	}
 

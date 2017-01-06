@@ -9,15 +9,34 @@
 import Foundation
 import SwiftyJSON
 
+enum Role {
+	case admin
+	case judge
+	case stagemgr
+	case unknown
+}
+extension Role {
+	static func fromRoleString(role: String?) -> Role {
+		if (role == "admin") {
+			return .judge //TODO: For testing, add admin checking later .admin
+		} else if (role == "judge") {
+			return .judge
+		} else if (role == "stagemgr") {
+			return .stagemgr
+		}
+		return .unknown
+	}
+}
+
 final class FeisUser : NSObject, JSONAble {
 	let firstName : String
 	let lastName: String
 	let id: String
-	let role: String
+	let role: Role
 	let currentFeis: FeisInfo?
 	let competitions: [Competition]
 	
-	init(firstName: String, lastName: String, id: String, role: String, currentFeis: FeisInfo?, competitions: [Competition]) {
+	init(firstName: String, lastName: String, id: String, role: Role, currentFeis: FeisInfo?, competitions: [Competition]) {
 		self.firstName = firstName
 		self.lastName = lastName
 		self.id = id
@@ -26,13 +45,16 @@ final class FeisUser : NSObject, JSONAble {
 		self.competitions = competitions
 	}
 	
+	
 	static func fromJSON(_ source: [String : Any]) -> FeisUser {
 		let json = JSON(source)
 		
 		let firstName = json["firstName"].stringValue
 		let lastName = json["lastName"].stringValue
 		let id = json["_id"].stringValue
-		let role = json["role"].stringValue
+		let roles = (json["roles"].arrayObject as? [String])
+		let role = Role.fromRoleString(role: roles?[0] ?? "")
+		
 		var currentFeis: FeisInfo?
 		
 		if let feisInfo = json["currentFeis"].object as? [String: AnyObject] {

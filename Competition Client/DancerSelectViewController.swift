@@ -1,20 +1,32 @@
 //
-//  RoundSelectViewController.swift
+//  DancerSelectViewController.swift
 //  Competition Client
 //
-//  Created by Greg Bekher on 1/2/17.
+//  Created by Greg Bekher on 1/4/17.
 //  Copyright © 2017 Feis.io. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
 
-class RoundSelectViewController: UITableViewController {
+// TODO: search bar controller
 
-	var networkModel : MainNetworkModel?
-	var selectedCompetition : Variable<Competition?> = Variable(nil)
+class DancerSelectViewController: UITableViewController {
+
+    var networkModel : MainNetworkModel?
+    var dancerNetworkModel : DancerNetworkModel?
+
+    var selectedCompetition : Variable<Optional<Competition>> = Variable(nil)
+    var selectedRound : Variable<Optional<Round>> = Variable(nil)
+
+    var dancers : Variable<[Dancer]> = Variable([])
+	
+	var userRole : Variable<Role> = Variable(.unknown)
+
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+	
+	var lastSeguedDancerNumber : Int? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,21 +36,37 @@ class RoundSelectViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		networkModel?.competitions
+
+        self.networkModel = appDelegate.getNetworkModel()
+		
+		guard (self.networkModel != nil) else { return }
+		
+	    self.dancerNetworkModel = DancerNetworkModel(parentNetworkModel: self.networkModel!)
+		self.networkModel!.authorizedUser
 			.asObservable()
-			.subscribe(onNext: { stuff in
+			.map() { userCreds in
+				return userCreds!.user.role
+			}.bindTo(self.userRole)
+			.addDisposableTo(rx_disposeBag)
+		
+        self.selectedCompetition
+            .asObservable()
+            .subscribe(onNext: {comp in
+				if (comp != nil) {
+					self.dancerNetworkModel!
+						.getDancers(competition: comp!)
+						.bindTo(self.dancers)
+						.addDisposableTo(self.rx_disposeBag)
+				}
+            })
+            .addDisposableTo(rx_disposeBag)
+		
+		self.dancers
+			.asObservable()
+			.subscribe( onNext: { d in
 				self.tableView.reloadData()
 			})
 			.addDisposableTo(rx_disposeBag)
-		// TODO: save competition id and reload current round based on that
-		selectedCompetition
-			.asObservable()
-			.subscribe(onNext: {stuff in
-				self.tableView.reloadData()
-			})
-			.addDisposableTo(rx_disposeBag)
-		
-		
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,26 +77,32 @@ class RoundSelectViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-
         return 1
     }
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if (self.userRole.value == Role.stagemgr) {
+			guard (indexPath.row != lastSeguedDancerNumber) else { return }
+			self.performSegue(withIdentifier: "showDetailStagemgr", sender: self)
+			
+		} else if (self.userRole.value == Role.judge) {
+			guard (indexPath.row != lastSeguedDancerNumber) else { return }
+			self.performSegue(withIdentifier: "showDetailJudge", sender: self)
+		}
+		self.lastSeguedDancerNumber = indexPath.row
+	}
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedCompetition.value?.rounds.count ?? 0
+        return self.dancers.value.count
     }
 
-	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "roundCell", for: indexPath)
-
-        let roundNumber = selectedCompetition.value?.rounds[indexPath.row].number ?? indexPath.row
-		let shoeType = selectedCompetition.value?.rounds[indexPath.row].shoeType ?? ""
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dancerCell", for: indexPath)
 		
-		cell.textLabel!.text = "Round \(roundNumber): \(shoeType) shoe"
+		cell.textLabel?.text = "\(self.dancers.value[indexPath.row].number)"
 
         return cell
     }
-	
 
     /*
     // Override to support conditional editing of the table view.
@@ -90,41 +124,48 @@ class RoundSelectViewController: UITableViewController {
     }
     */
 
-    /*
+	
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
-    */
 
-    /*
+
+	
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
-        return true
+		if (self.userRole.value == .stagemgr) {
+			return true
+		}
+		return false
     }
-    */
+	
 
+	
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-		if (segue.identifier == "showDancerSelectViewController") {
-			let destVC = segue.destination as! DancerSelectViewController
+		if (segue.identifier == "showDetailJudge") {
+			let destNavVC = segue.destination as! UINavigationController
+			let destVC = destNavVC.viewControllers.first as! DancerScoresheetViewController
 			let selectedIndex = self.tableView.indexPathForSelectedRow
-
-			if (selectedIndex != nil) {
-				destVC.selectedCompetition = self.selectedCompetition
-				self.selectedCompetition.asObservable().map()
-					{ comp in
-						return comp?.rounds[selectedIndex!.row] ?? nil
-				}.bindTo(destVC.selectedRound)
-				.addDisposableTo(rx_disposeBag)
-			}
+			
+			guard (selectedIndex != nil) else { return }
+			
+			destVC.round = self.selectedRound
+			destVC.competition = self.selectedCompetition
+			destVC.dancer.value = self.dancers.value[selectedIndex!.row]
+			
 		}
     }
-
+	
+	@IBAction func unwindToDancerSelectVC(segue: UIStoryboardSegue) {
+		
+	}
+	
 
 }

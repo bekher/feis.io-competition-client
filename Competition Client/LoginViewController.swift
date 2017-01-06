@@ -61,7 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		let password = self.passwordTextfield?.text ?? ""
 		self.loginLabel?.isHidden = true
 		
-		_ = self.networkModel?.login(username: username, password: password)
+		self.networkModel?.login(username: username, password: password)
 			.subscribe(onNext: { isLoggedIn in
 				if (isLoggedIn) {
 					self.performSegue(withIdentifier: "unwindToSplitVC", sender: self)
@@ -70,15 +70,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 					
 				}
 			})
-		/*
-		DispatchQueue.global(qos: .userInitiated).async {
-		if (self.networkModel?.login(username: self.usernameTextfield?.text ?? "", password: self.passwordTextfield?.text ?? ""))! {
-			print("login success")
-		} else {
-			print("login fail")
-		}
-		}
-*/
+			.addDisposableTo(rx_disposeBag)
 	}
 
     /*

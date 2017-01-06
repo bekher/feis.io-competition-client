@@ -16,27 +16,27 @@ final class DanceInfo: NSObject, JSONAble {
 	let setSpeed : String
 	let danceType : String
 	let shoeType : String
+	let isPresent : Bool
 	
-	
-	init(roundID : String, setName : String, setSpeed : String, danceType : String, shoeType : String) {
+	init(roundID : String, setName : String, setSpeed : String, danceType : String, shoeType : String, isPresent : Bool) {
 		self.roundID = roundID
 		self.setName = setName
 		self.setSpeed = setSpeed
 		self.danceType = danceType
 		self.shoeType = shoeType
+		self.isPresent = isPresent
 	}
 	
 	static func fromJSON(_ source: [String : Any]) -> DanceInfo {
 		let json = JSON(source)
-		
-		//TODO FIX
 		
 		let roundID = json["roundId"].stringValue
 		let setName = json["setName"].stringValue
 		let setSpeed = json["setSpeed"].stringValue
 		let danceType = json["danceType"].stringValue
 		let shoeType = json["shoeType"].stringValue
+		let isPresent = json["isPresent"].boolValue
 		
-		return DanceInfo(roundID: roundID, setName: setName, setSpeed: setSpeed, danceType: danceType, shoeType: shoeType)
+		return DanceInfo(roundID: roundID, setName: setName, setSpeed: setSpeed, danceType: danceType, shoeType: shoeType, isPresent: isPresent)
 	}
 }

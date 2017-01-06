@@ -28,10 +28,13 @@ enum NetworkError : Swift.Error {
 	
 }
 
-
 protocol NetworkModel {
-	func initialConnect()
-	// func testConnectivity()
+	var authorizedUser : Variable<UserCredentials?> {
+		get
+	}
+	var provider: RxMoyaProvider<FeisioAPI>! {
+		get
+	}
 }
 
 // Adapted from Artsy's app
@@ -41,7 +44,7 @@ func responseIsOK(_ response: Response) -> Bool {
 
 class APIPingManager {
 	
-	let syncInterval: TimeInterval = 5
+	let syncInterval: TimeInterval = 7
 	var letOnline: Observable<Bool>!
 	var provider: RxMoyaProvider<FeisioAPI>
 	
@@ -63,6 +66,10 @@ class APIPingManager {
 
 
 class MainNetworkModel : NSObject, NetworkModel {
+	internal var provider: RxMoyaProvider<FeisioAPI>!
+
+	internal var authorizedUser: Variable<UserCredentials?>
+
 	
 	/* Proposed workflow:
 	1) try log in
@@ -71,11 +78,8 @@ class MainNetworkModel : NSObject, NetworkModel {
 	4) for noncached info, do a direct network call to collect
 	*/
 	
-
-	var authorizedUser : Variable<UserCredentials?> = Variable(nil)
 	var competitions : Variable<[Competition]> = Variable([])
-	
-	fileprivate var provider: RxMoyaProvider<FeisioAPI>!
+
 	fileprivate var curFeis: FeisInfo?
 	
 	lazy var _apiPinger: APIPingManager = {
@@ -85,6 +89,48 @@ class MainNetworkModel : NSObject, NetworkModel {
 	lazy var reachability: Observable<Bool> = {
 		self._apiPinger.letOnline
 	}()
+
+	
+	// for userdefaults look up, slightly disgusting
+	fileprivate var _tmpApiKey : String?
+	
+	fileprivate var apiKey : String? {
+		return self.authorizedUser.value?.accessToken ?? _tmpApiKey
+	}
+	
+	override init() {
+		self.authorizedUser = Variable(nil)
+		self._tmpApiKey = nil
+	}
+	
+	func tryRestoreFromUserDefaults() {
+		let prevToken = FeisioDefaults.getUserToken()
+		
+		if (prevToken != nil) {
+			let prevUserId = FeisioDefaults.getUserId()
+			
+			guard (prevUserId != nil) else { return }
+			
+			self._tmpApiKey = prevToken!
+
+			self.provider!
+				.request(.user(id: prevUserId!))
+				.filterSuccessfulStatusCodes()
+				.mapJSON()
+				.catchError() { error in
+					self._tmpApiKey = nil
+					throw error
+				}
+				.mapTo(object: FeisUser.self)
+				.map() { user in
+					print(user)
+					return UserCredentials(user: user, accessToken: prevToken! as String)
+				}
+
+				.bindTo(self.authorizedUser)
+				.addDisposableTo(rx_disposeBag)
+		}
+	}
 	
 	func setup() {
 		let endpointClosure = { (target: FeisioAPI) -> Endpoint<FeisioAPI> in
@@ -104,7 +150,7 @@ class MainNetworkModel : NSObject, NetworkModel {
 			case .auth( _, _):
 				return defaultEndpoint
 			default:
-				return defaultEndpoint.adding(newHTTPHeaderFields: ["Authorization": self.authorizedUser.value?.accessToken ?? ""])
+				return defaultEndpoint.adding(newHTTPHeaderFields: ["Authorization": self.apiKey ?? ""])
 			}
 		}
 		
@@ -114,27 +160,14 @@ class MainNetworkModel : NSObject, NetworkModel {
 			.asObservable()
 			.subscribe(onNext: { authUser in
 				guard (authUser != nil) else { return }
-	
+
 				self.getCompetitions()?
 					.bindTo(self.competitions)
 					.addDisposableTo(self.rx_disposeBag)
 			})
 			.addDisposableTo(rx_disposeBag)
 		
-	}
-	
-	func initialConnect() {
-		/*
-		provider.request(.feises)
-		.filterSuccessfulStatusCodes()
-		.mapJSON()
-		.mapTo(arrayOf: FeisInfo.self)
-		.subscribe {
-		print($0)
-		}
-		.addDisposableTo(self.disposeBag)
-		*/
-		
+		self.tryRestoreFromUserDefaults()
 	}
 	
 	func login(username : String, password : String) -> Observable<Bool> {
@@ -158,6 +191,7 @@ class MainNetworkModel : NSObject, NetworkModel {
 							self.authorizedUser.value =
 								UserCredentials(user: FeisUser.fromJSON(json["data"] as! [String : Any]),
 								                accessToken: json["token"] as! String)
+							FeisioDefaults.saveUserToken(userCreds: self.authorizedUser.value!)
 							
 							observer.onNext(true)
 						}
@@ -174,6 +208,12 @@ class MainNetworkModel : NSObject, NetworkModel {
 		
 	}
 	
+	func logout() {
+		if (self.authorizedUser.value != nil) {
+			self.authorizedUser.value = nil
+		}
+	}
+	
 	fileprivate func getCompetitions() -> Observable<[Competition]>? {
 		guard (self.authorizedUser.value != nil) else { return nil }
 
@@ -183,32 +223,11 @@ class MainNetworkModel : NSObject, NetworkModel {
 			.filterSuccessfulStatusCodes()
 			.mapJSON()
 			.mapTo(arrayOf: Competition.self)
-			/*
-			.map({ response in
-				do {
-					if let json = try response.mapJSON() as? [String: Any] {
-						
-						return json.map({ entry in
-							return
-						})
-					}
-				} catch {
-					return []
-				}
-			})
-				*/
 		}
 		
 		return nil
 	}
-	
-	func getFeisInfo() -> FeisInfo? {
-		guard authorizedUser.value != nil else {
-			return nil
-		}
-		return nil
-	}
-	
+
 	func isAuthenticated() -> Bool {
 		return authorizedUser.value != nil
 	}
