@@ -49,8 +49,8 @@ final class FeisUser : NSObject, JSONAble {
 	static func fromJSON(_ source: [String : Any]) -> FeisUser {
 		let json = JSON(source)
 		
-		let firstName = json["firstName"].stringValue
-		let lastName = json["lastName"].stringValue
+		let firstName = json["firstname"].stringValue
+		let lastName = json["lastname"].stringValue
 		let id = json["_id"].stringValue
 		let roles = (json["roles"].arrayObject as? [String])
 		let role = Role.fromRoleString(role: roles?[0] ?? "")
