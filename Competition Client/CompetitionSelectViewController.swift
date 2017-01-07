@@ -13,7 +13,7 @@ import RxCocoa
 
 class CompetitionSelectViewController: UITableViewController {
 	
-	var detailViewController: DetailViewController? = nil
+	var detailViewController: DashboardViewController? = nil
 
 	var networkModel : MainNetworkModel?
 	let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -27,22 +27,38 @@ class CompetitionSelectViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 		
-		if let split = self.splitViewController {
-			let controllers = split.viewControllers
-			self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-			if (self.detailViewController != nil) {
-				//self.navigationController?.pushViewController(self.detailViewController!, animated:true)
-			}
-		}
 		
 		self.networkModel = appDelegate.getNetworkModel()
-
+		
 		networkModel?.competitions
 			.asObservable()
 			.subscribe(onNext: { stuff in
 				self.tableView.reloadData()
 			})
 			.addDisposableTo(rx_disposeBag)
+		
+		if let split = self.splitViewController {
+			let controllers = split.viewControllers
+			self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DashboardViewController
+			if (self.detailViewController != nil) {
+				//self.navigationController?.pushViewController(self.detailViewController!, animated:true)
+				networkModel?.authorizedUser
+					.asObservable()
+					.map() { nextAuthUser in
+						return nextAuthUser?.user
+					}
+					.bindTo(self.detailViewController!.user)
+					.addDisposableTo(rx_disposeBag)
+				networkModel?.authorizedUser
+					.asObservable()
+					.map() { nextAuthUser in
+						return nextAuthUser?.user.currentFeis
+					}
+					.bindTo(self.detailViewController!.feisInfo)
+					.addDisposableTo(rx_disposeBag)
+			}
+		}
+
 		
 		
     }
@@ -150,8 +166,6 @@ class CompetitionSelectViewController: UITableViewController {
 			if (selectedIndex != nil) {
 				destVC.selectedCompetition.value = networkModel!.competitions.value[selectedIndex!.row]
 			}
-		} else {
-			
 		}
     }
 	

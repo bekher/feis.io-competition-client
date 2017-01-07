@@ -22,12 +22,6 @@ class RootSplitViewController: UISplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-
-		/* not needed but cool stuff to look at later
-		NotificationCenter.default.addObserver(self, selector: #selector(showLoginViewController),
-		                                       name: NSNotification.Name(rawValue: "segue"), object: nil)
-		*/
-		
         // Do any additional setup after loading the view.
 		self.networkModel = appDelegate.getNetworkModel()
 		self.networkModel!.reachability

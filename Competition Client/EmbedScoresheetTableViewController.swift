@@ -11,11 +11,45 @@ import RxSwift
 import RxCocoa
 class EmbedScoresheetTableViewController: UITableViewController {
 
+	@IBOutlet weak var setInfoLabel : UILabel?
+	@IBOutlet weak var danceInfoLabel : UILabel?
+	@IBOutlet weak var commentsTextView: UITextView?
+	
+	var round : Variable<Optional<Round>> = Variable(nil)
 	var dancer : Variable<Optional<Dancer>> = Variable(nil)
 	var scoresheet : Variable<Optional<Scoresheet>> = Variable(nil)
+	var dancerNetworkModel : Variable<Optional<DancerNetworkModel>> = Variable(nil)
+	var danceInfo : Variable<Optional<DanceInfo>> = Variable(nil)
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		dancerNetworkModel
+			.asObservable()
+			.subscribe(onNext: { dnn in
+				guard (dnn != nil) else {return}
+				// TODO: get scoresheet and bind
+			})
+			.addDisposableTo(rx_disposeBag)
+		
+		dancer.asObservable()
+			.map() { curDancer in
+				return curDancer?.danceInfo(for: self.round.value?.id ?? "")
+			}
+			.bindTo(self.danceInfo)
+			.addDisposableTo(rx_disposeBag)
+		danceInfo.asObservable()
+			.map() { curInfo in
+				return "Set: \(curInfo?.setName ?? "") at \(curInfo?.setSpeed ?? "") BPM"
+			}
+			.bindTo(self.setInfoLabel!.rx.text)
+			.addDisposableTo(rx_disposeBag)
+		danceInfo.asObservable()
+			.map() { curInfo in
+				return "Dance: \(curInfo?.danceType ?? "" ), \(curInfo?.shoeType ?? "") shoe"
+			}
+			.bindTo(self.danceInfoLabel!.rx.text)
+			.addDisposableTo(rx_disposeBag)
+		
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,7 +115,7 @@ class EmbedScoresheetTableViewController: UITableViewController {
     }
     */
 
-	
+	/*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,6 +123,6 @@ class EmbedScoresheetTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    
+    */
 
 }

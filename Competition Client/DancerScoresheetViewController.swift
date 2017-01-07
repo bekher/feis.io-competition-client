@@ -19,7 +19,9 @@ class DancerScoresheetViewController: UIViewController {
 	var dancer : Variable<Optional<Dancer>> = Variable(nil)
 	var round : Variable<Optional<Round>> = Variable(nil)
 	var competition : Variable<Optional<Competition>> = Variable(nil)
+	var dancerNetworkModel : Variable<Optional<DancerNetworkModel>> = Variable(nil)
 	weak var scoresheetTableViewController : EmbedScoresheetTableViewController?
+	weak var dancerSelectViewController : DancerSelectViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +59,28 @@ class DancerScoresheetViewController: UIViewController {
         // Pass the selected object to the new view controller.
 		
 		if (segue.identifier == "embedScoresheetTableViewController") {
+			let destVC = segue.destination as! EmbedScoresheetTableViewController
+			destVC.dancerNetworkModel = self.dancerNetworkModel
+			destVC.round.value = self.round.value
+			destVC.dancer.value = self.dancer.value
+			/*
+			self.dancer
+				.asObservable()
+				.bindTo(destVC.dancer)
+				.addDisposableTo(rx_disposeBag)
+			*/
+			self.scoresheetTableViewController = destVC
 			
 		}
     }
+	
+	@IBAction func nextDancerInTableView() {
+		self.dancerSelectViewController?.nextDancer()
+	}
+	
+	@IBAction func prevDancerInTableView() {
+		self.dancerSelectViewController?.prevDancer()
+	}
 
 
 }

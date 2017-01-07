@@ -141,7 +141,36 @@ class DancerSelectViewController: UITableViewController {
 		return false
     }
 	
-
+	
+	func nextDancer() {
+		var indexPath = self.tableView?.indexPathForSelectedRow
+		guard (indexPath != nil) else { return }
+		guard (indexPath!.row + 1 < self.dancers.value.count) else { return }
+		indexPath!.row += 1
+		
+		self.tableView!.selectRow(at: indexPath!, animated: true, scrollPosition: .middle)
+		self.tableView(self.tableView, didSelectRowAt: indexPath!)
+	}
+	
+	func prevDancer() {
+		var indexPath = self.tableView?.indexPathForSelectedRow
+		guard (indexPath != nil) else { return }
+		guard (indexPath!.row > 0 ) else { return }
+		indexPath!.row -= 1
+		
+		self.tableView!.selectRow(at: indexPath!, animated: true, scrollPosition: .middle)
+		self.tableView(self.tableView, didSelectRowAt: indexPath!)
+	}
+	
+	func selectDancer(dancer: Dancer) {
+		// also inefficent 
+		let index = self.dancers.value.index(of: dancer)
+		guard (index != nil) else {return}
+		// TOOD Change to 1
+		let indexPath = IndexPath(row: index!, section: 0)
+		self.tableView!.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+		self.tableView(self.tableView, didSelectRowAt: indexPath)
+	}
 	
     // MARK: - Navigation
 
@@ -159,7 +188,22 @@ class DancerSelectViewController: UITableViewController {
 			destVC.round = self.selectedRound
 			destVC.competition = self.selectedCompetition
 			destVC.dancer.value = self.dancers.value[selectedIndex!.row]
+			destVC.dancerNetworkModel.value = self.dancerNetworkModel
+			destVC.dancerSelectViewController = self
+			let splitViewController = appDelegate.window!.rootViewController as! UISplitViewController
 			
+			destVC.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+			
+		} else if (segue.identifier == "presentReviewNavVC") {
+			let destNavVC = segue.destination as! UINavigationController
+			let destVC = destNavVC.viewControllers.first as! DancerReviewTableViewController
+			
+			destVC.dancers.value = self.dancers.value
+			destVC.dancerSelectViewController = self
+			
+			let splitViewController = appDelegate.window!.rootViewController as! UISplitViewController
+			
+			destVC.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
 		}
     }
 	

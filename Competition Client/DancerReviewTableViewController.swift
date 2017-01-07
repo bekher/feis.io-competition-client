@@ -7,8 +7,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class DancerReviewTableViewController: UITableViewController {
+	
+	var dancerScoresheets : Variable<Optional<[Dancer : Scoresheet?]>> = Variable(nil)
+	var dancers : Variable<Optional<[Dancer]>> = Variable(nil)
+	var dancerSelectViewController : DancerSelectViewController?
+	
+	// probably want this to be a dictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,24 +36,25 @@ class DancerReviewTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return dancers.value?.count ?? 0
     }
 
-    /*
+	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dancerReviewCell", for: indexPath) as! DancerReviewCell
 
-        // Configure the cell...
+        cell.dancerIdLabel?.text = "\(dancers.value?[indexPath.row].number ?? 0)"
+		cell.dancer = dancers.value?[indexPath.row]
+		cell.parentVC = self
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -94,6 +103,12 @@ class DancerReviewTableViewController: UITableViewController {
 	
 	@IBAction func unwindToDancerReviewVC(segue: UIStoryboardSegue) {
 		
+	}
+	
+	func editButtonPressed(dancer : Dancer) {
+		self.dismiss(animated: true) {
+			self.dancerSelectViewController?.selectDancer(dancer: dancer)
+		}
 	}
 
 }
